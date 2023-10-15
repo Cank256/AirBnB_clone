@@ -1,20 +1,25 @@
 #!/usr/bin/python3
 import cmd
 from models.base_model import BaseModel
-from models import storage
+from models import models, storage
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def do_create(self, arg):
-        """Create a new instance of BaseModel and print its id\n"""
+        """Create a new instance of a valid Class and print its id\n"""
         if not arg:
             print("** class name missing **")
             return
+        
+        class_name = arg.split()[0]
+        if class_name not in models:
+            print("** class doesn't exist **")
+            return
 
         try:
-            new_instance = BaseModel()
+            new_instance = models[class_name]()
             new_instance.save()
             print(new_instance.id)
         except Exception as e:
@@ -72,12 +77,13 @@ class HBNBCommand(cmd.Cmd):
         result = []
 
         if class_name:
-            for key, instance in all_objects.items():
-                if key.startswith(class_name + "."):
-                    result.append(str(instance))
-                else:
-                    print("** class doesn't exist **")
-                    return
+            if class_name in models:
+                for key, instance in all_objects.items():
+                    if key.startswith(class_name + "."):
+                        result.append(str(instance))
+            else:
+                print("** class doesn't exist **")
+                return
         else:
             for instance in all_objects.values():
                 result.append(str(instance))
