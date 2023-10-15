@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import json
 
 
@@ -29,6 +30,7 @@ class FileStorage:
                 for key, value in obj_dict.items():
                     class_name, obj_id = key.split('.')
                     cls = self.models[class_name]
+
                     new_obj = cls(**value)
                     FileStorage.__objects[key] = new_obj
         except FileNotFoundError:
