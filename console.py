@@ -13,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        
+
         class_name = arg.split()[0]
         if class_name not in models:
             print("** class doesn't exist **")

@@ -13,13 +13,13 @@ class User(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialize User instance."""
         super().__init__(*args, **kwargs)
-    
+
     @classmethod
     def all(cls):
         """Return a list of all User instances"""
         all_objects = FileStorage.all(User)
         return list(all_objects.values())
-    
+
     @classmethod
     def count(cls):
         """Count all User instances"""
