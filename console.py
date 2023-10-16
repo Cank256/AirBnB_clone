@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import cmd
+from models.user import User
 from models.base_model import BaseModel
 from models import models, storage
 
@@ -130,6 +131,34 @@ class HBNBCommand(cmd.Cmd):
             attr_value = eval(attr_value)
             setattr(instance, attr_name, attr_value)
             instance.save()
+
+    def default(self, line):
+        """Handle dynamic method calls"""
+        class_name, method = None, None
+
+        # Split the input into class_name and method
+        if '.' in line:
+            parts = line.split('.')
+            class_name = parts[0]
+            method = parts[1].strip('()')
+
+        # Check if class_name is valid
+        if class_name not in models:
+            print("** class doesn't exist **")
+            return
+
+        # Check if the method exists and is callable
+        if method:
+            cls = models[class_name]
+            if hasattr(cls, method) and callable(getattr(cls, method)):
+                result = getattr(cls, method)()
+                if isinstance(result, list):
+                    for item in result:
+                        print(item)
+                elif result is not None:
+                    print(result)
+            else:
+                print(f"** method {method} doesn't exist **")
 
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
