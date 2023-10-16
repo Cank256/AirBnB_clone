@@ -44,3 +44,13 @@ class Amenity(BaseModel):
             print("** no instance found **")
         else:
             print(f'{result}')
+
+    @classmethod
+    def destroy(cls, id):
+        """Destroy the Amenity instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "Amenity", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            FileStorage.destroy(cls, "Amenity", id)

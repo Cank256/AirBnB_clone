@@ -46,3 +46,13 @@ class Review(BaseModel):
             print("** no instance found **")
         else:
             print(f'{result}')
+
+    @classmethod
+    def destroy(cls, id):
+        """Destroy the Review instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "Review", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            FileStorage.destroy(cls, "Review", id)

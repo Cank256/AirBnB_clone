@@ -45,3 +45,13 @@ class City(BaseModel):
             print("** no instance found **")
         else:
             print(f'{result}')
+
+    @classmethod
+    def destroy(cls, id):
+        """Destroy the City instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "City", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            FileStorage.destroy(cls, "City", id)

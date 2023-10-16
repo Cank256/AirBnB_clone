@@ -48,9 +48,19 @@ class Place(BaseModel):
     @classmethod
     def show(cls, id):
         """Return the Place instance with the given ID"""
-        result = FileStorage.get_by_id(cls, "User", id)
+        result = FileStorage.get_by_id(cls, "Place", id)
 
         if result is None:
             print("** no instance found **")
         else:
             print(f'{result}')
+
+    @classmethod
+    def destroy(cls, id):
+        """Destroy the Place instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "Place", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            FileStorage.destroy(cls, "Place", id)

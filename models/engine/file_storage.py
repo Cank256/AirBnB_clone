@@ -45,7 +45,7 @@ class FileStorage:
     def destroy(self, class_name, instance_id):
         all_objects = FileStorage.all(self)
         key = f"{class_name}.{instance_id}"
-        
+
         if key in all_objects:
             del all_objects[key]
             FileStorage.save(self)
