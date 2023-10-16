@@ -17,11 +17,23 @@ class User(BaseModel):
     @classmethod
     def all(cls):
         """Return a list of all User instances"""
-        all_objects = FileStorage.all(User)
-        return list(all_objects.values())
+        all_objects = FileStorage.all(cls)
+        result = []
+
+        for key, instance in all_objects.items():
+            if key.startswith("User."):
+                result.append(str(instance))
+        
+        print(result)
 
     @classmethod
     def count(cls):
         """Count all User instances"""
-        all_objects = FileStorage.all(User)
-        return len(all_objects)
+        all_objects = FileStorage.all(cls)
+        result = []
+
+        for key, instance in all_objects.items():
+            if key.startswith("User."):
+                result.append(str(instance))
+
+        print(len(result))

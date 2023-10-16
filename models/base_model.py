@@ -50,3 +50,27 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
+
+    @classmethod
+    def all(cls):
+        """Return a list of all BaseModel instances"""
+        all_objects = FileStorage.all(cls)
+        result = []
+
+        for key, instance in all_objects.items():
+            if key.startswith("BaseModel."):
+                result.append(str(instance))
+        
+        print(result)
+
+    @classmethod
+    def count(cls):
+        """Count all BaseModel instances"""
+        all_objects = FileStorage.all(cls)
+        result = []
+
+        for key, instance in all_objects.items():
+            if key.startswith("BaseModel."):
+                result.append(str(instance))
+
+        print(len(result))
