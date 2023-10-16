@@ -35,3 +35,9 @@ class FileStorage:
                     FileStorage.__objects[key] = new_obj
         except FileNotFoundError:
             pass
+
+    def get_by_id(self, class_name, instance_id):
+        all_objects = FileStorage.all(self)
+        key = f"{class_name}.{instance_id}"
+        instance = all_objects.get(key, None)
+        return instance

@@ -20,7 +20,7 @@ class State(BaseModel):
         for key, instance in all_objects.items():
             if key.startswith("State."):
                 result.append(str(instance))
-        
+
         print(result)
 
     @classmethod
@@ -34,3 +34,13 @@ class State(BaseModel):
                 result.append(str(instance))
 
         print(len(result))
+
+    @classmethod
+    def show(cls, id):
+        """Return the State instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "State", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            print(f'{result}')

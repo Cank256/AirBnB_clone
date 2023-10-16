@@ -135,12 +135,30 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         """Handle dynamic method calls"""
         class_name, method = None, None
+        args = []
 
         # Split the input into class_name and method
         if '.' in line:
             parts = line.split('.')
             class_name = parts[0]
-            method = parts[1].strip('()')
+            if '(' in parts[1]:
+                method, args_str = parts[1].split('(', 1)
+                args_str = args_str.rstrip(')').strip()
+
+                if args_str:
+                    the_args = args_str.split(',')
+
+                    # Clean the arguments
+                    for arg in the_args:
+                        arg = arg.strip()
+                        if (arg.startswith('"') and arg.endswith('"')):
+                            if (arg.startswith("'") and arg.endswith("'")):
+                                the_arg = arg[1:-1]
+                        else:
+                            the_arg = arg
+                        args.append(the_arg)
+            else:
+                method = parts[1].strip()
 
         # Check if class_name is valid
         if class_name not in models:
@@ -148,17 +166,22 @@ class HBNBCommand(cmd.Cmd):
             return
 
         # Check if the method exists and is callable
-        if method:
-            cls = models[class_name]
-            if hasattr(cls, method) and callable(getattr(cls, method)):
-                result = getattr(cls, method)()
-                if isinstance(result, list):
-                    for item in result:
-                        print(item)
-                elif result is not None:
-                    print(result)
+        cls = models[class_name]
+        if hasattr(cls, method) and callable(getattr(cls, method)):
+            if args:
+                # Call the method with arguments
+                result = getattr(cls, method)(*args)
             else:
-                print(f"** method {method} doesn't exist **")
+                # Call the method without arguments
+                result = getattr(cls, method)()
+
+            if isinstance(result, list):
+                for item in result:
+                    print(item)
+            elif result is not None:
+                print(result)
+        else:
+            print(f"** method {method} doesn't exist **")
 
     def do_quit(self, arg):
         """Quit command to exit the program\n"""

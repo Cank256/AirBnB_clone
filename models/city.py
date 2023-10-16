@@ -21,7 +21,7 @@ class City(BaseModel):
         for key, instance in all_objects.items():
             if key.startswith("City."):
                 result.append(str(instance))
-        
+
         print(result)
 
     @classmethod
@@ -35,3 +35,13 @@ class City(BaseModel):
                 result.append(str(instance))
 
         print(len(result))
+
+    @classmethod
+    def show(cls, id):
+        """Return the City instance with the given ID"""
+        result = FileStorage.get_by_id(cls, "City", id)
+
+        if result is None:
+            print("** no instance found **")
+        else:
+            print(f'{result}')
