@@ -151,9 +151,9 @@ class HBNBCommand(cmd.Cmd):
                     # Clean the arguments
                     for arg in the_args:
                         arg = arg.strip()
-                        if (arg.startswith('"') and arg.endswith('"')):
-                            if (arg.startswith("'") and arg.endswith("'")):
-                                the_arg = arg[1:-1]
+                        if (arg.startswith('"') and arg.endswith('"')) or \
+                                (arg.startswith("'") and arg.endswith("'")):
+                            the_arg = arg[1:-1]
                         else:
                             the_arg = arg
                         args.append(the_arg)
