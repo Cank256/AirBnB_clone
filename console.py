@@ -98,6 +98,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
+
+        if args[0] not in models:
+            print("** class doesn't exist **")
+            return
+
         if len(args) < 2:
             print("** instance id missing **")
             return
