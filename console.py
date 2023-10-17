@@ -159,9 +159,15 @@ class HBNBCommand(cmd.Cmd):
                         if (arg.startswith('"') and arg.endswith('"')) or \
                                 (arg.startswith("'") and arg.endswith("'")):
                             the_arg = arg[1:-1]
+                        elif '{' in arg and '}' in arg:
+                            try:
+                                the_arg = eval(arg)
+                            except:
+                                the_arg = arg
                         else:
                             the_arg = arg
                         args.append(the_arg)
+                    print(args)
             else:
                 method = parts[1].strip()
 

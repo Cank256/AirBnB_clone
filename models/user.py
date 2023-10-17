@@ -69,23 +69,24 @@ class User(BaseModel):
     @classmethod
     def update(cls, id=None, attr=None, value=None):
         """Update the User instance with the given ID"""
-        if id is None:
-            print("** instance id missing **")
-            return
+        # if id is None:
+        #     print("** instance id missing **")
+        #     return
 
-        if attr is None:
-            print("** attribute name missing **")
-            return
+        # if attr is None:
+        #     print("** attribute name missing **")
+        #     return
 
-        if value is None:
-            print("** value missing **")
-            return
+        # if value is None:
+        #     print("** value missing **")
+        #     return
 
-        instance = FileStorage.get_by_id(cls, "User", id)
+        # instance = FileStorage.get_by_id(cls, "User", id)
 
-        if not instance:
-            print("** no instance found **")
-            return
+        # if not instance:
+        #     print("** no instance found **")
+        #     return
 
-        else:
-            FileStorage.update(cls, "User", id, attr, value)
+        # else:
+        #     FileStorage.update(cls, "User", id, attr, value)
+        print(id)
