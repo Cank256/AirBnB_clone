@@ -104,18 +104,14 @@ class BaseModel:
             FileStorage.destroy(cls, "BaseModel", id)
 
     @classmethod
-    def update(cls, id=None, attr=None, value=None):
+    def update(cls, id=None, args=None):
         """Update the BaseModel instance with the given ID"""
         if id is None:
             print("** instance id missing **")
             return
 
-        if attr is None:
-            print("** attribute name missing **")
-            return
-
-        if value is None:
-            print("** value missing **")
+        if args is None:
+            print("** arguments are missing **")
             return
 
         instance = FileStorage.get_by_id(cls, "BaseModel", id)
@@ -125,4 +121,4 @@ class BaseModel:
             return
 
         else:
-            FileStorage.update(cls, "BaseModel", id, attr, value)
+            FileStorage.update(cls, "BaseModel", id, args)

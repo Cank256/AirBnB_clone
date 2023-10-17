@@ -24,7 +24,7 @@ class User(BaseModel):
             if key.startswith("User."):
                 result.append(str(instance))
 
-        print(result)
+        return result
 
     @classmethod
     def count(cls):
@@ -39,7 +39,7 @@ class User(BaseModel):
         print(len(result))
 
     @classmethod
-    def show(cls, id):
+    def show(cls, id=None):
         """Return the User instance with the given ID"""
         if id is None:
             print("** instance id missing **")
@@ -53,7 +53,7 @@ class User(BaseModel):
             print(f'{instance}')
 
     @classmethod
-    def destroy(cls, id):
+    def destroy(cls, id=None):
         """Destroy the User instance with the given ID"""
         if id is None:
             print("** instance id missing **")
@@ -67,26 +67,21 @@ class User(BaseModel):
             FileStorage.destroy(cls, "User", id)
 
     @classmethod
-    def update(cls, id=None, attr=None, value=None):
+    def update(cls, id=None, args=None):
         """Update the User instance with the given ID"""
-        # if id is None:
-        #     print("** instance id missing **")
-        #     return
+        if id is None:
+            print("** instance id missing **")
+            return
 
-        # if attr is None:
-        #     print("** attribute name missing **")
-        #     return
+        if args is None:
+            print("** arguments are missing **")
+            return
 
-        # if value is None:
-        #     print("** value missing **")
-        #     return
+        instance = FileStorage.get_by_id(cls, "User", id)
 
-        # instance = FileStorage.get_by_id(cls, "User", id)
+        if not instance:
+            print("** no instance found **")
+            return
 
-        # if not instance:
-        #     print("** no instance found **")
-        #     return
-
-        # else:
-        #     FileStorage.update(cls, "User", id, attr, value)
-        print(id)
+        else:
+            FileStorage.update(cls, "User", id, args)

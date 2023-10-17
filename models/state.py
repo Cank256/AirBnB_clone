@@ -64,25 +64,21 @@ class State(BaseModel):
             FileStorage.destroy(cls, "City", id)
 
     @classmethod
-    def update(cls, id=None, attr=None, value=None):
-        """Update the City instance with the given ID"""
+    def update(cls, id=None, args=None):
+        """Update the Review instance with the given ID"""
         if id is None:
             print("** instance id missing **")
             return
 
-        if attr is None:
-            print("** attribute name missing **")
+        if args is None:
+            print("** arguments are missing **")
             return
 
-        if value is None:
-            print("** value missing **")
-            return
-
-        instance = FileStorage.get_by_id(cls, "City", id)
+        instance = FileStorage.get_by_id(cls, "Review", id)
 
         if not instance:
             print("** no instance found **")
             return
 
         else:
-            FileStorage.update(cls, "City", id, attr, value)
+            FileStorage.update(cls, "Review", id, args)

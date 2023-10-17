@@ -137,6 +137,57 @@ class HBNBCommand(cmd.Cmd):
             setattr(instance, attr_name, attr_value)
             instance.save()
 
+    # def default(self, line):
+    #     """Handle dynamic method calls"""
+    #     class_name, method = None, None
+    #     args = []
+
+    #     # Split the input into class_name and method
+    #     if '.' in line:
+    #         parts = line.split('.')
+    #         class_name = parts[0]
+    #         if '(' in parts[1]:
+    #             method, args_str = parts[1].split('(', 1)
+    #             args_str = args_str.rstrip(')').strip()
+
+    #             if args_str:
+    #                 the_args = args_str.split(',')
+
+    #                 # Clean the arguments
+    #                 for arg in the_args:
+    #                     arg = arg.strip()
+    #                     if (arg.startswith('"') and arg.endswith('"')) or \
+    #                             (arg.startswith("'") and arg.endswith("'")):
+    #                         the_arg = arg[1:-1]
+    #                     else:
+    #                         the_arg = arg
+    #                     args.append(the_arg)
+    #         else:
+    #             method = parts[1].strip()
+
+    #     # Check if class_name is valid
+    #     if class_name not in models:
+    #         print("** class doesn't exist **")
+    #         return
+
+    #     # Check if the method exists and is callable
+    #     cls = models[class_name]
+    #     if hasattr(cls, method) and callable(getattr(cls, method)):
+    #         if args:
+    #             # Call the method with arguments
+    #             result = getattr(cls, method)(*args)
+    #         else:
+    #             # Call the method without arguments
+    #             result = getattr(cls, method)()
+
+    #         if isinstance(result, list):
+    #             for item in result:
+    #                 print(item)
+    #         elif result is not None:
+    #             print(result)
+    #     else:
+    #         print(f"** method {method} doesn't exist **")
+
     def default(self, line):
         """Handle dynamic method calls"""
         class_name, method = None, None
@@ -151,23 +202,49 @@ class HBNBCommand(cmd.Cmd):
                 args_str = args_str.rstrip(')').strip()
 
                 if args_str:
-                    the_args = args_str.split(',')
+                    if ',' in args_str:
+                        # Split the arguments into two parts: ID and key-value pairs
+                        id_arg, rest_args = args_str.split(',', 1)
+                        id_arg = id_arg.strip()
+                        rest_args = rest_args.strip()
+                        rest_dict = {}
 
-                    # Clean the arguments
-                    for arg in the_args:
-                        arg = arg.strip()
-                        if (arg.startswith('"') and arg.endswith('"')) or \
-                                (arg.startswith("'") and arg.endswith("'")):
-                            the_arg = arg[1:-1]
-                        elif '{' in arg and '}' in arg:
-                            try:
-                                the_arg = eval(arg)
-                            except:
-                                the_arg = arg
+                        # Check if the ID argument is in valid format (without '' and "")
+                        if id_arg.startswith('"') and id_arg.endswith('"'):
+                            args.append(id_arg.strip('"'))
+                        elif id_arg.startswith("'") and id_arg.endswith("'"):
+                            args.append(id_arg.strip("'"))
                         else:
-                            the_arg = arg
-                        args.append(the_arg)
-                    print(args)
+                            args.append(id_arg)
+
+                        # Check if the rest of the arguments are provided within '{}'
+                        if rest_args.startswith('{') and rest_args.endswith('}'):
+                            try:
+                                rest_dict_args = eval(rest_args)  # Parse as dictionary
+                                rest_dict.update(rest_dict_args)  # Merge with the 'args' dictionary
+                            except:
+                                print("** Invalid dictionary format **")
+                                return
+                        else:
+                            # Handle quotes around attribute and value
+                            if (rest_args.startswith('"') and rest_args.endswith('"')) or \
+                            (rest_args.startswith("'") and rest_args.endswith("'")):
+                                attr, value = rest_args[1:-1].split(',')
+                            else:
+                                attr, value = rest_args.split(',')
+
+                            attr = attr.strip()
+                            value = value.strip()
+                            rest_dict[attr] = value
+
+                        args.append(rest_dict)
+                    else:
+                        if args_str.startswith('"') and args_str.endswith('"'):
+                            args.append(args_str.strip('"'))
+                        elif args_str.startswith("'") and args_str.endswith("'"):
+                            args.append(args_str.strip("'"))
+                        else:
+                            args.append(args_str)
             else:
                 method = parts[1].strip()
 
@@ -180,7 +257,7 @@ class HBNBCommand(cmd.Cmd):
         cls = models[class_name]
         if hasattr(cls, method) and callable(getattr(cls, method)):
             if args:
-                # Call the method with arguments
+                # Call the method with the dictionary argument
                 result = getattr(cls, method)(*args)
             else:
                 # Call the method without arguments
@@ -193,6 +270,7 @@ class HBNBCommand(cmd.Cmd):
                 print(result)
         else:
             print(f"** method {method} doesn't exist **")
+
 
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
