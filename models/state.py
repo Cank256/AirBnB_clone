@@ -36,21 +36,53 @@ class State(BaseModel):
         print(len(result))
 
     @classmethod
-    def show(cls, id):
-        """Return the State instance with the given ID"""
-        result = FileStorage.get_by_id(cls, "State", id)
+    def show(cls, id=None):
+        """Return the City instance with the given ID"""
+        if id is None:
+            print("** instance id missing **")
+            return
 
-        if result is None:
+        instance = FileStorage.get_by_id(cls, "City", id)
+
+        if instance is None:
             print("** no instance found **")
         else:
-            print(f'{result}')
+            print(f'{instance}')
 
     @classmethod
-    def destroy(cls, id):
-        """Destroy the State instance with the given ID"""
-        result = FileStorage.get_by_id(cls, "State", id)
+    def destroy(cls, id=None):
+        """Destroy the City instance with the given ID"""
+        if id is None:
+            print("** instance id missing **")
+            return
 
-        if result is None:
+        instance = FileStorage.get_by_id(cls, "City", id)
+
+        if instance is None:
             print("** no instance found **")
         else:
-            FileStorage.destroy(cls, "State", id)
+            FileStorage.destroy(cls, "City", id)
+
+    @classmethod
+    def update(cls, id=None, attr=None, value=None):
+        """Update the City instance with the given ID"""
+        if id is None:
+            print("** instance id missing **")
+            return
+
+        if attr is None:
+            print("** attribute name missing **")
+            return
+
+        if value is None:
+            print("** value missing **")
+            return
+
+        instance = FileStorage.get_by_id(cls, "City", id)
+
+        if not instance:
+            print("** no instance found **")
+            return
+
+        else:
+            FileStorage.update(cls, "City", id, attr, value)

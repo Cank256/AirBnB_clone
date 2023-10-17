@@ -36,21 +36,53 @@ class Amenity(BaseModel):
         print(len(result))
 
     @classmethod
-    def show(cls, id):
+    def show(cls, id=None):
         """Return the Amenity instance with the given ID"""
-        result = FileStorage.get_by_id(cls, "Amenity", id)
+        if id is None:
+            print("** instance id missing **")
+            return
 
-        if result is None:
+        instance = FileStorage.get_by_id(cls, "Amenity", id)
+
+        if instance is None:
             print("** no instance found **")
         else:
-            print(f'{result}')
+            print(f'{instance}')
 
     @classmethod
-    def destroy(cls, id):
+    def destroy(cls, id=None):
         """Destroy the Amenity instance with the given ID"""
-        result = FileStorage.get_by_id(cls, "Amenity", id)
+        if id is None:
+            print("** instance id missing **")
+            return
 
-        if result is None:
+        instance = FileStorage.get_by_id(cls, "Amenity", id)
+
+        if instance is None:
             print("** no instance found **")
         else:
             FileStorage.destroy(cls, "Amenity", id)
+
+    @classmethod
+    def update(cls, id=None, attr=None, value=None):
+        """Update the Amenity instance with the given ID"""
+        if id is None:
+            print("** instance id missing **")
+            return
+
+        if attr is None:
+            print("** attribute name missing **")
+            return
+
+        if value is None:
+            print("** value missing **")
+            return
+
+        instance = FileStorage.get_by_id(cls, "Amenity", id)
+
+        if not instance:
+            print("** no instance found **")
+            return
+
+        else:
+            FileStorage.update(cls, "Amenity", id, attr, value)

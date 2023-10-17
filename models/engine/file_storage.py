@@ -49,3 +49,15 @@ class FileStorage:
         if key in all_objects:
             del all_objects[key]
             FileStorage.save(self)
+
+    def update(self, class_name, instance_id, attr_name, attr_value):
+        all_objects = FileStorage.all(self)
+        key = f"{class_name}.{instance_id}"
+        instance = all_objects.get(key, None)
+
+        if hasattr(instance, attr_name):
+            setattr(instance, attr_name, attr_value)
+            instance.save()
+        else:
+            setattr(instance, attr_name, attr_value)
+            instance.save()
