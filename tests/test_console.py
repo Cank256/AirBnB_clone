@@ -4,6 +4,7 @@ from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
 
+
 class TestConsole(unittest.TestCase):
     def setUp(self):
         self.console = HBNBCommand()
@@ -86,6 +87,22 @@ class TestConsole(unittest.TestCase):
             self.console.onecmd(f"User.show({instance_id})")
             output = self.stdout.getvalue().strip()
             self.assertTrue("John" in output)
+
+    def test_do_quit(self):
+        with patch('sys.stdout', new=self.stdout):
+            result = self.console.onecmd("quit")
+        self.assertTrue(result)  # Should return True to quit the program.
+
+    def test_do_EOF(self):
+        with patch('sys.stdout', new=self.stdout):
+            result = self.console.onecmd("EOF")
+        self.assertTrue(result)  # Should return True to quit the program.
+
+    def test_emptyline(self):
+        with patch('sys.stdout', new=self.stdout):
+            result = self.console.onecmd("")
+        self.assertIsNone(result)
+
 
 if __name__ == '__main__':
     unittest.main()
