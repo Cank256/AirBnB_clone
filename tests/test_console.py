@@ -32,7 +32,6 @@ class TestConsole(unittest.TestCase):
             self.console.onecmd("create User")
             output = self.stdout.getvalue().strip()
             instance_id = output.split(".")[1]
-            
             # Now, test the "show" command on this instance
             self.console.onecmd(f"show User {instance_id}")
             output = self.stdout.getvalue().strip()
@@ -46,7 +45,6 @@ class TestConsole(unittest.TestCase):
             self.console.onecmd("create User")
             output = self.stdout.getvalue().strip()
             instance_id = output.split(".")[1]
-            
             # Now, test the "destroy" command on this instance
             self.console.onecmd(f"destroy User {instance_id}")
             output = self.stdout.getvalue().strip()

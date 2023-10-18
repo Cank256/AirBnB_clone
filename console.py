@@ -152,13 +152,12 @@ class HBNBCommand(cmd.Cmd):
 
                 if args_str:
                     if ',' in args_str:
-                        # Split the arguments into two parts: ID and key-value pairs
+
                         id_arg, rest_args = args_str.split(',', 1)
                         id_arg = id_arg.strip()
                         rest_args = rest_args.strip()
                         rest_dict = {}
 
-                        # Check if the ID argument is in valid format (without '' and "")
                         if id_arg.startswith('"') and id_arg.endswith('"'):
                             args.append(id_arg.strip('"'))
                         elif id_arg.startswith("'") and id_arg.endswith("'"):
@@ -166,18 +165,18 @@ class HBNBCommand(cmd.Cmd):
                         else:
                             args.append(id_arg)
 
-                        # Check if the rest of the arguments are provided within '{}'
-                        if rest_args.startswith('{') and rest_args.endswith('}'):
+                        if rest_args.startswith('{') and \
+                                rest_args.endswith('}'):
                             try:
-                                rest_dict_args = eval(rest_args)  # Parse as dictionary
-                                rest_dict.update(rest_dict_args)  # Merge with the 'args' dictionary
+                                rest_dict_args = eval(rest_args)
+                                rest_dict.update(rest_dict_args)
                             except:
                                 print("** Invalid dictionary format **")
                                 return
                         else:
                             # Handle quotes around attribute and value
                             if (rest_args.startswith('"') and rest_args.endswith('"')) or \
-                            (rest_args.startswith("'") and rest_args.endswith("'")):
+                                        (rest_args.startswith("'") and rest_args.endswith("'")):
                                 attr, value = rest_args[1:-1].split(',')
                             else:
                                 attr, value = rest_args.split(',')
@@ -188,9 +187,11 @@ class HBNBCommand(cmd.Cmd):
 
                         args.append(rest_dict)
                     else:
-                        if args_str.startswith('"') and args_str.endswith('"'):
+                        if args_str.startswith('"') and \
+                                args_str.endswith('"'):
                             args.append(args_str.strip('"'))
-                        elif args_str.startswith("'") and args_str.endswith("'"):
+                        elif args_str.startswith("'") and \
+                                args_str.endswith("'"):
                             args.append(args_str.strip("'"))
                         else:
                             args.append(args_str)
@@ -219,7 +220,6 @@ class HBNBCommand(cmd.Cmd):
                 print(result)
         else:
             print(f"** method {method} doesn't exist **")
-
 
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
