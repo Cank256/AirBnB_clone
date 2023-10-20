@@ -1,0 +1,71 @@
+/* Define styles for the added sections and classes */
+.places .amenities {
+    margin-top: 40px;
+}
+
+.places .amenities h2 {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.places .amenities ul {
+    padding: 0;
+    list-style: none;
+}
+
+.places .amenities li {
+    color: #49494A;
+}
+
+.places .amenities li::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 18px;
+    vertical-align: middle;
+}
+
+.pet::before {
+    background-image: url('../images/icon_pets.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.tv::before {
+    background-image: url('../images/icon_tv.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.wifi::before {
+    background-image: url('../images/icon_wifi.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.places .reviews {
+    margin-top: 40px;
+}
+
+.places .reviews h2 {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.places .reviews h3 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.places .reviews p {
+    font-size: 12px;
+    margin-top: 4px;
+}
