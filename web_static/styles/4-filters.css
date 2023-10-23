@@ -26,6 +26,7 @@
     height: 100%;
     width: 25%;
     line-height: 1px;
+    z-index: 999;
 }
 
 .filter h3, h4 {

@@ -1,0 +1,13 @@
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  header {
+    height: 150px;
+  }
+}
+
+/* Media query for even smaller screens, e.g., mobile */
+@media (max-width: 480px) {
+  header {
+    height: 150px;
+  }
+}

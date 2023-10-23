@@ -1,0 +1,30 @@
+/* Media query for smaller screens */
+@media (max-width: 820px) {
+  .filters {
+    width: 90%;
+    margin-left: 30px;
+  }
+
+  .locations {
+    flex: 3;
+  }
+
+  .amenities {
+    flex: 4;
+  }
+
+  .filters button {
+    flex: 2;
+  }
+
+  .amenities .popover {
+    width: 50%;
+  }
+}
+
+/* Media query for even smaller screens, e.g., mobile */
+@media (max-width: 480px) {
+  .filters {
+    width: 90%;
+  }
+}
