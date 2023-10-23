@@ -12,16 +12,18 @@
     width: 320px;
     margin: 20px 15px;
   }
+
+  .places .information .max_guest,
+  .places .information .number_rooms,
+  .places .information .number_bathrooms {
+    margin: 20px 5px;
+  }
 }
 
 @media (max-width: 768px) {
   .places h1 {
     margin-left: 22px;
   }
-
-  /* .place_cards {
-    margin-left: -20px;
-  } */
 
   .place_cards article {
     width: 300px;
